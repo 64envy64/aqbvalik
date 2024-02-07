@@ -1,17 +1,14 @@
+@charset "UTF-8";
 @import 'https://unpkg.com/open-props' layer(design.system);
-@import 'https://unpkg.com/open-props/normalize.dark.min.css'
-  layer(base.normalize);
-
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&display=swap');
-
+@import 'https://unpkg.com/open-props/normalize.dark.min.css' layer(base.normalize);
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
 @layer base.override-normalize {
   :root {
-        view-transition-name: none;
-    font-family: 'Oswald', sans-serif;
-
+    view-transition-name: none;
+    font-family: "Oswald", sans-serif;
     --font-size-0: 0.875rem;
     --radius-3: 8px;
-
     --surface-1-2: #562ec5;
     --surface-1: #000000;
     --surface-2: #141414;
@@ -21,12 +18,11 @@
     --text-2: #27158a;
     --brand-1: #543ad4;
     --brand-2: #d8b260;
-
     --container: 1600px;
     --nav-block-size: 6.2rem;
-
-
     --gap: var(--size-8);
+    --count-down-bg: rgba(238, 235, 235, 0.295);
+    --timer-before-bg: rgb(218, 201, 109);
   }
   li {
     padding: 0;
@@ -35,15 +31,13 @@
     margin: 0;
     max-inline-size: unset;
   }
-
   h1,
   h2,
   h3 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: "Bebas Neue", sans-serif;
     font-weight: normal;
   }
 }
-
 @layer containers {
   .Navbar {
     position: sticky;
@@ -51,63 +45,59 @@
     z-index: var(--layer-3);
     background-color: var(--surface-1-2);
     block-size: var(--nav-block-size);
-
-    .container {
-      display: flex;
-      margin-inline: auto;
-      max-inline-size: var(--container);
-      align-items: center;
-      justify-content: space-between;
-      padding-inline: var(--size-3);
+  }
+  .Navbar .container {
+    display: flex;
+    margin-inline: auto;
+    max-inline-size: var(--container);
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: var(--size-3);
+  }
+  @media (width > 768px) {
+    .Navbar #openMenuBtn {
+      display: none;
     }
-
-    @media (width > 768px) {
-      #openMenuBtn {
-        display: none;
-      }
+  }
+  .Navbar .menu {
+    list-style: none;
+    display: flex;
+    background-color: var(--surface-1-2);
+  }
+  .Navbar .menu > header {
+    display: flex;
+    justify-content: space-between;
+    inline-size: 100%;
+    padding-inline: var(--size-3);
+    border-bottom: var(--border-size-2) solid var(--text-1);
+  }
+  @media (width < 768px) {
+    .Navbar .menu {
+      flex-direction: column;
+      align-items: start;
+      position: fixed;
+      inset-block: 0;
+      inset-inline-end: 0;
+      inline-size: 100%;
+      gap: var(--size-7);
+      display: none;
     }
-
-    .menu {
-      list-style: none;
+    .Navbar .menu.open {
       display: flex;
-      background-color: var(--surface-1-2);
-
-      > header {
-        display: flex;
-        justify-content: space-between;
-        inline-size: 100%;
-        padding-inline: var(--size-3);
-        border-bottom: var(--border-size-2) solid var(--text-1);
-      }
-
-      @media (width < 768px) {
-        flex-direction: column;
-        align-items: start;
-        position: fixed;
-        inset-block: 0;
-        inset-inline-end: 0;
-        inline-size: 100%;
-        gap: var(--size-7);
-
-        display: none;
-        &.open {
-          display: flex;
-        }
-      }
-
-      @media (width >= 768px) {
-        gap: var(--gap);
-        > header {
-          display: none;
-        }
-      }
+    }
+  }
+  @media (width >= 768px) {
+    .Navbar .menu {
+      gap: var(--gap);
+    }
+    .Navbar .menu > header {
+      display: none;
     }
   }
   main {
     display: grid;
     margin-inline: auto;
   }
-
   section .container {
     max-inline-size: 1200px;
     padding-inline: var(--size-3);
@@ -118,141 +108,214 @@
     margin-inline: auto;
     padding-inline: var(--size-3);
   }
-
   .hero {
     display: grid;
     align-items: center;
+  }
+  .hero > * {
+    grid-area: 1/1;
+  }
+  .hero h1 {
+    text-align: center;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: normal;
+    font-size: 9rem;
+    text-transform: uppercase;
+  }
+  .hero p {
+    max-inline-size: 25ch;
+    font-size: var(--font-size-4);
+    color: var(--surface-1);
+    text-align: center;
+    display: none;
+  }
+  .hero .visual {
+    background: var(--gradient-8);
+    block-size: calc(100dvh - var(--nav-block-size));
+    overflow: hidden;
+  }
+  .hero .visual img {
+    object-fit: cover;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+  .hero :is(picture, img) {
+    inline-size: 100%;
+    block-size: 100%;
+  }
+  .hero .content {
+    display: grid;
+    place-items: center;
+  }
+  .worldcup-count-down {
+    max-width: 90rem;
+    font-family: 'Montserrat','sans-serif';
+    margin: 2rem 0 0 0;
+    border-radius: 1rem;
+    background: var(--count-down-bg);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    margin-bottom: 20px;
+}
+.count {
+    position: relative;
+    text-align: center;
+}
 
-    > * {
-      grid-area: 1/1;
-    }
+.count:not(:first-child)::before {
+    position: absolute;
+    content: '';
+    left: -1rem;
+    top: 50%;
+    width: 0.5rem;
+    height: 0.5rem;
+    transform: rotate(45deg) translateY(-50%);
+    background: var(--timer-before-bg);
+}
 
-    & h1 {
-      text-align: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-weight: normal;
-      font-size: 9rem;
-      text-transform: uppercase;
-    }
+.count h3 {
+    font-size: 3rem;
+    color: var(--white);
+}
 
-    & p {
-      max-inline-size: 25ch;
-      font-size: var(--font-size-4);
-      color: var(--surface-1);
-      text-align: center;
-      display: none;
-    }
+.count .count-time {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--secondary);
+}
 
-    .visual {
-      background: var(--gradient-8);
+.running {
+  font-family: 'Montserrat','sans-serif';
+  font-weight: 700;
+  margin-left: 15px;
+  grid-column: 1 / -1; /* Изменено здесь */
+  color: var(--secondary);
+  font-size: 3rem;
+  letter-spacing: 0.5px;
+}
 
-      block-size: calc(100dvh - var(--nav-block-size));
-      overflow: hidden;
-
-      & img {
-        object-fit: cover;
-        inline-size: 100%;
-        block-size: 100%;
-      }
-    }
-
-    :is(picture, img) {
-      inline-size: 100%;
-      block-size: 100%;
-    }
-
-    .content {
+  @media (width < 768px) {
+    .worldcup-count-down {
+      max-width: 40rem;
+      font-family: 'Montserrat','sans-serif';
+      margin: 2rem 0 0 0;
+      border-radius: 1rem;
+      background: var(--count-down-bg);
+      backdrop-filter: blur(10px);
+      padding: 1rem;
       display: grid;
-      place-items: center;
-    }
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 20px;
+  }
+  .count:not(:first-child)::before {
+    position: absolute;
+    content: '';
+    left: -1rem;
+    top: 50%;
+    width: 0.5rem;
+    height: 0.5rem;
+    transform: rotate(45deg) translateY(-50%);
+    background: var(--timer-before-bg);
+}
+.count h3 {
+    font-size: 2.5rem;
+    color: var(--white);
+}
+.count .count-time {
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--secondary);
+}
+.running {
+  font-family: 'Montserrat','sans-serif';
+  font-weight: 700;
+  margin-left: 5px;
+  grid-column: 1 / -1; /* Изменено здесь */
+  color: var(--secondary);
+  font-size: 2.5rem;
+  letter-spacing: 0.5px;
+}
 
-    @media (width < 768px) {
-      .content {
-        gap: var(--size-3);
-      }
-      & h1 {
-        font-size: 4.5rem;
-        max-inline-size: var(--size-content-1);
-        line-height: var(--font-lineheight-0);
-      }
+    .hero .content {
+      gap: var(--size-3);
+    }
+    .hero h1 {
+      font-size: 4.5rem;
+      max-inline-size: var(--size-content-1);
+      line-height: var(--font-lineheight-0);
     }
   }
-
   .fold {
     display: grid;
     justify-content: center;
     padding: var(--size-10);
-
-    & p {
-      text-align: center;
-      font-size: var(--font-size-7);
-      max-inline-size: var(--size-content-2);
-      @media (width < 768px) {
-        font-size: var(--font-size-fluid-3);
-      }
+    background-image: url(back.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .fold p {
+    text-align: center;
+    font-size: var(--font-size-7);
+    max-inline-size: var(--size-content-2);
+  }
+  @media (width < 768px) {
+    .fold p {
+      font-size: var(--font-size-fluid-3);
     }
   }
-
-  .schedule {
-    & h2 {
-      font-size: var(--font-size-7);
-      color: var(--brand-1);
-      text-transform: uppercase;
-    }
-
-    & table {
-      border: 3px solid var(--surface-1);
-      inline-size: 100%;
-    }
-
-    .table-wrapper {
-      display: grid;
-      justify-items: center;
-      gap: calc(var(--gap) / 2);
-    }
-
-    & tr:hover td {
-      color: var(--brand-1);
-       background-color: white;
-    }
-
-    @media (width > 768px) {
-      .container {
-        grid-template-columns: 1fr 1fr;
-        gap: var(--size-10);
-      }
+  .schedule h2 {
+    font-size: var(--font-size-7);
+    color: var(--brand-1);
+    text-transform: uppercase;
+  }
+  .schedule table {
+    border: 3px solid var(--surface-1);
+    inline-size: 100%;
+  }
+  .schedule .table-wrapper {
+    display: grid;
+    justify-items: center;
+    gap: calc(var(--gap) / 2);
+  }
+  .schedule tr:hover td {
+    color: var(--brand-1);
+    background-color: white;
+  }
+  @media (width > 768px) {
+    .schedule .container {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--size-10);
     }
   }
-
   .showcase {
     display: grid;
     overflow: hidden;
     background-color: var(--surface-1);
-
-    > * {
-      grid-area: 1/1;
-    }
-    > video {
-      display: block;
-      inline-size: 100%;
-    }
-    > img {
-      z-index: 1;
+  }
+  .showcase > * {
+    grid-area: 1/1;
+  }
+  .showcase > video {
+    display: block;
+    inline-size: 100%;
+  }
+  .showcase > img {
+    z-index: 1;
+  }
+  @media (width > 768px) {
+    .cards .container {
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
-
-  .cards {
-    @media (width > 768px) {
-      .container {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
-    }
-  }
-
   .about {
     background-color: var(--surface-1);
     padding-inline: var(--size-3);
-
     display: grid;
     grid-template-rows: 1fr auto;
     justify-content: center;
@@ -260,27 +323,22 @@
     padding-block-end: var(--size-8);
     place-content: center;
     text-align: center;
-
-    #target-word {
-      font-size: var(--font-size-8);
-      align-self: center;
-    }
-
-    & footer {
-      & p {
-        color: var(--text-1);
-        text-wrap: balance;
-      }
-      & img {
-        align-items: center;
-        align-self: center;
-        width: 10rem;
-        margin: 0 auto;
-      }
-    }
+  }
+  .about #target-word {
+    font-size: var(--font-size-8);
+    align-self: center;
+  }
+  .about footer p {
+    color: var(--text-1);
+    text-wrap: balance;
+  }
+  .about footer img {
+    align-items: center;
+    align-self: center;
+    width: 10rem;
+    margin: 0 auto;
   }
 }
-
 @layer components {
   .Card {
     display: grid;
@@ -288,54 +346,41 @@
     color: var(--text-1);
     gap: calc(var(--gap) / 2);
     align-content: start;
-
     text-decoration: none;
     transition: background-color 0.2s var(--ease-2);
     padding: var(--size-7);
     border-radius: var(--radius-3);
-
-    & h2 {
-      font-size: var(--font-size-5);
-      padding-bottom: 20px;
-    }
-
-    & ul {
-      padding: var(--size-);
-    }
-
-    & i {
-      font-size: var(--font-size-6);
-
-      /* VisuBug ♥ */
-      margin-inline-start: var(--size-00);
-    }
-
-    & li {
-      text-wrap: balance;
-    }
-
-    &:hover {
-      background-color: hsl(0, 0%, 33%);
-    }
-    img {
-      border-radius: 5px;
-    }
   }
-
+  .Card h2 {
+    font-size: var(--font-size-5);
+    padding-bottom: 20px;
+  }
+  .Card ul {
+    padding: var(--size-);
+  }
+  .Card i {
+    font-size: var(--font-size-6);
+    /* VisuBug ♥ */
+    margin-inline-start: var(--size-00);
+  }
+  .Card li {
+    text-wrap: balance;
+  }
+  .Card:hover {
+    background-color: hsl(0, 0%, 33%);
+  }
+  .Card img {
+    border-radius: 5px;
+  }
   .Button,
   .LinkButton {
     display: inline-flex;
     text-transform: uppercase;
     font-weight: 700;
     text-decoration: none;
-
     color: var(--text-1);
-    padding: calc(var(--size-2) + var(--border-size-1))
-      calc(var(--size-2) + var(--border-size-2));
-
-    padding: calc(var(--size-2) + var(--border-size-1))
-      calc(var(--size-4) + var(--border-size-2));
-
+    padding: calc(var(--size-3) + var(--border-size-1)) calc(var(--size-4) + var(--border-size-2));
+    padding: calc(var(--size-2) + var(--border-size-1)) calc(var(--size-7) + var(--border-size-2));
     font-size: 1.25rem;
     min-inline-size: 13ch;
     transition: 0.5s ease;
@@ -343,29 +388,30 @@
     border: 1px solid var(--surface-2);
     border-radius: 5px;
     margin-top: 30px;
-
-    &.Primary {
-      border-color: var(--brand-1);
-      background-color: var(--brand-1);
-      &:hover {
-        border-color: var(--text-1);
-        background-color: var(--text-1);
-        color: var(--brand-1);
-      }
-    }
-
-    &.secondary {
-      border-color: var(--text-1);
-      background-color: var(--text-1);
-      color: var(--brand-1);
-      &:hover {
-        border-color: var(--brand-1);
-        background-color: var(--brand-1);
-        color: var(--text-1);
-      }
-    }
   }
-
+  .Button.Primary,
+  .LinkButton.Primary {
+    border-color: var(--brand-1);
+    background-color: var(--brand-1);
+  }
+  .Button.Primary:hover,
+  .LinkButton.Primary:hover {
+    border-color: var(--text-1);
+    background-color: var(--text-1);
+    color: var(--brand-1);
+  }
+  .Button.secondary,
+  .LinkButton.secondary {
+    border-color: var(--text-1);
+    background-color: var(--text-1);
+    color: var(--brand-1);
+  }
+  .Button.secondary:hover,
+  .LinkButton.secondary:hover {
+    border-color: var(--brand-1);
+    background-color: var(--brand-1);
+    color: var(--text-1);
+  }
   .NavLink {
     color: var(--text-2);
     font-size: var(--font-size-3);
@@ -375,73 +421,64 @@
     text-underline-offset: 0.5ex;
     text-decoration: none;
     transition: color 200ms ease;
-
     /* &:hover {
       text-decoration: underline;
     } */
-
-    &:hover {
-      color: var(--brand-1);
-    }
-
-    &:target {
-      color: var(--brand-1);
-    }
-
-    @media (width < 768px) {
+  }
+  .NavLink:hover {
+    color: var(--brand-1);
+  }
+  .NavLink:target {
+    color: var(--brand-1);
+  }
+  @media (width < 768px) {
+    .NavLink {
       font-size: var(--font-size-5);
       padding-inline: var(--size-4);
     }
   }
-
   .Logo {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: "Bebas Neue", sans-serif;
     font-weight: var(--font-weight-9);
-
     font-size: 3rem;
     font-size: calc(var(--font-size-8) + var(--font-size-1));
   }
- @media (max-width: 768px){
-  .Logo {
-    font-size: calc(var(--font-size-7) + var(--font-size-1));
+  @media (max-width: 768px) {
+    .Logo {
+      font-size: calc(var(--font-size-7) + var(--font-size-1));
+    }
   }
- }
   .NavButton {
     padding: var(--size-2);
     background-color: var(--surface-1-2);
-    > i {
-      font-size: var(--font-size-6);
-    }
+  }
+  .NavButton > i {
+    font-size: var(--font-size-6);
   }
 }
-
 @media (prefers-reduced-motion: no-preference) {
   @layer animation.scroll-driven {
     .showcase {
       view-timeline: --showcase;
-
-      > img {
-        animation: fade-overlay linear both;
-        animation-timeline: --showcase;
-        animation-range: 20% 40%;
-        transform-origin: top center;
-      }
     }
-
+    .showcase > img {
+      animation: fade-overlay linear both;
+      animation-timeline: --showcase;
+      animation-range: 20% 40%;
+      transform-origin: top center;
+    }
     .schedule {
       animation: to-white linear both;
       animation-timeline: view();
       animation-range-start: 4%;
       animation-range-end: 10%;
     }
-
     .cards {
       animation: to-brand linear both;
       animation-timeline: view();
       animation-range-start: 4%;
       animation-range-end: 16%;
     }
-
     .about {
       background-color: #5B2DDE;
       animation: to-black linear both;
@@ -461,138 +498,108 @@
         background-color: #5B2DDE;
       }
     }
-
     @keyframes to-white {
       to {
         background-color: white;
       }
     }
-
     @keyframes to-black {
       to {
         background-color: black;
       }
     }
   }
-
   @layer animation.reveal {
     .subject {
       opacity: 0;
     }
-
     .reveal-up {
-      animation: fade-in 660ms ease forwards,
-        slide-up 1000ms cubic-bezier(0, 0, 0.1, 1) forwards;
+      animation: fade-in 660ms ease forwards, slide-up 1000ms cubic-bezier(0, 0, 0.1, 1) forwards;
     }
-
     .reveal-down {
-      animation: fade-in 660ms ease forwards,
-        slide-down 1000ms cubic-bezier(0, 0, 0.1, 1) forwards;
+      animation: fade-in 660ms ease forwards, slide-down 1000ms cubic-bezier(0, 0, 0.1, 1) forwards;
     }
-
     @keyframes fade-in {
       to {
         opacity: 1;
       }
     }
-
     @keyframes slide-up {
       from {
         transform: translateY(-100px);
       }
     }
-
     @keyframes slide-down {
       from {
         transform: translateY(100px);
       }
     }
   }
-
   @layer animation.navbar {
     .Navbar {
       transition: transform 0.4s var(--ease-2);
-      [scroll-direction='down'] & {
-        transform: translateY(-200%);
-      }
+    }
+    [scroll-direction=down] .Navbar {
+      transform: translateY(-200%);
     }
   }
-
   @layer animation.scroll-driven.active-link {
     body {
       timeline-scope: --home, --schedules, --plans, --about;
     }
-
     #home {
       view-timeline-name: --home;
     }
-
     #schedules {
       view-timeline-name: --schedules;
     }
     #plans {
       view-timeline-name: --plans;
     }
-
     #about {
       view-timeline-name: --about;
     }
-
-    .NavLink[href='#'] {
+    .NavLink[href="#"] {
       animation-timeline: --home;
     }
-
-    .NavLink[href='#schedules'] {
+    .NavLink[href="#schedules"] {
       animation-timeline: --schedules;
     }
-
-    .NavLink[href='#plans'] {
+    .NavLink[href="#plans"] {
       animation-timeline: --plans;
     }
-
-    .NavLink[href='#about'] {
+    .NavLink[href="#about"] {
       animation-timeline: --about;
     }
-
     .NavLink {
       animation: highlight linear both;
     }
-
     @keyframes highlight {
-      0%,
-      100% {
+      0%, 100% {
         color: white;
       }
-      30%,
-      70% {
+      30%, 70% {
         color: hsla(246, 100%, 96%, 0.767);
       }
     }
   }
-
   @layer animation.navbar.sm-screen {
     body:has(.menu.open) {
       overflow-y: hidden;
     }
-
-    @media (prefers-reduced-motion: no-preference) {
-      @media (width < 768px) {
-        .menu {
-          view-transition-name: menu;
-        }
-
-        ::view-transition-old(menu) {
-          animation: var(--animation-slide-out-right);
-        }
-
-        ::view-transition-new(menu) {
-          animation: var(--animation-slide-in-left);
-        }
+    @media (prefers-reduced-motion: no-preference) and (prefers-reduced-motion: no-preference) and (width < 768px) {
+      .menu {
+        view-transition-name: menu;
+      }
+      ::view-transition-old(menu) {
+        animation: var(--animation-slide-out-right);
+      }
+      ::view-transition-new(menu) {
+        animation: var(--animation-slide-in-left);
       }
     }
   }
 }
-
 @supports not (animation-timeline: scroll()) {
   .schedule {
     background-color: white;
@@ -601,17 +608,16 @@
     background-color: var(--brand-1);
   }
 }
-
 @media (prefers-reduced-motion: reduce) {
   .schedule {
     background-color: white;
   }
-
   .showcase {
     display: none;
   }
-
   .cards {
     background-color: var(--brand-1);
   }
 }
+
+/*# sourceMappingURL=style.css.map */
