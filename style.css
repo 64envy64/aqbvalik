@@ -129,6 +129,20 @@
     text-align: center;
     display: none;
   }
+  .widget-container {
+    padding: 20px 0;
+    margin: 0 auto;
+    max-width: 100%;
+    overflow: hidden;
+}
+.dg-widget-link {
+    display: block; 
+    margin-bottom: 10px; 
+}
+#widget-container iframe {
+    width: 100%; 
+    height: 620px; 
+}
   .hero .visual {
     background: var(--gradient-8);
     block-size: calc(100dvh - var(--nav-block-size));
