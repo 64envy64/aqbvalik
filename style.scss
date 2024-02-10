@@ -299,7 +299,16 @@
   }
   .schedule tr:hover td {
     color: var(--brand-1);
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.336);
+  }
+  .schedule .logo-cell {
+    width: 100px; /* Задайте желаемую ширину для ячейки с логотипом */
+    text-align: center; /* Выравнивание содержимого по центру */
+  }
+  
+  .schedule .logo {
+    max-width: 100%; /* Максимальная ширина изображения */
+    height: auto; /* Автоматическое подстраивание высоты */
   }
   @media (width > 768px) {
     .schedule .container {
