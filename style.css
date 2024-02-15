@@ -123,12 +123,26 @@
     text-transform: uppercase;
   }
   .hero p {
-    max-inline-size: 25ch;
+    max-inline-size: 35ch;
     font-size: var(--font-size-4);
     color: var(--surface-1);
     text-align: center;
     display: none;
   }
+  .widget-container {
+    padding: 20px 0;
+    margin: 0 auto;
+    max-width: 100%;
+    overflow: hidden;
+}
+.dg-widget-link {
+    display: block; 
+    margin-bottom: 10px; 
+}
+#widget-container iframe {
+    width: 100%; 
+    height: 620px; 
+}
   .hero .visual {
     background: var(--gradient-8);
     block-size: calc(100dvh - var(--nav-block-size));
@@ -285,7 +299,16 @@
   }
   .schedule tr:hover td {
     color: var(--brand-1);
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.336);
+  }
+  .schedule .logo-cell {
+    width: 100px; /* Задайте желаемую ширину для ячейки с логотипом */
+    text-align: center; /* Выравнивание содержимого по центру */
+  }
+  
+  .schedule .logo {
+    max-width: 100%; /* Максимальная ширина изображения */
+    height: auto; /* Автоматическое подстраивание высоты */
   }
   @media (width > 768px) {
     .schedule .container {
@@ -360,7 +383,6 @@
   }
   .Card i {
     font-size: var(--font-size-6);
-    /* VisuBug ♥ */
     margin-inline-start: var(--size-00);
   }
   .Card li {
